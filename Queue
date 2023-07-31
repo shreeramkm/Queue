@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define size 10
+int front=-1,rear=-1;
+int q[size],ar[size];
+void enqueue(){
+	if(rear==size-1){
+		printf("\n OVERFLOW");
+	}
+	else{
+		int x;
+		if(rear==-1 && front==-1){
+			rear=0;
+			front=0;
+		}
+		else{
+			rear+=1;
+		}
+		printf("\n enter the element to be inserted");
+		scanf("%d",&x);
+		q[rear]=x;
+	}
+}
+void dequeue(){
+	if(front==-1 || front>rear){
+		printf("\n UNDERFLOW ");
+	}
+	else{
+		int x=q[front];
+		if(rear==front){
+			rear=-1;
+			front=-1;
+		}
+		else{
+			front+=1;
+		}
+		printf("\n the element deleted %d",x);
+	}
+}
+void show(){
+	if(rear==-1){
+		printf("\n UNDERFLOW");
+	}
+	else{
+		for(int i=front;i<=rear;i++){
+			printf("\n %d",q[i]);
+		}
+	}
+}
+void last(){
+	printf(" the last updated value %d",q[rear]);
+}
+void first(){
+	printf(" the first updated value %d",q[front]);
+}
+void odd(){
+		if(rear==-1){
+		printf("\n UNDERFLOW");
+	}
+	else{
+		for(int i=front;i<=rear;i++){
+			if(q[i]%2!=0){
+				printf("\n %d",q[i]);
+		}
+		}
+	}
+}
+void even(){
+		if(rear==-1){
+		printf("\n UNDERFLOW");
+	}
+	else{
+		for(int i=front;i<=rear;i++){
+			if(q[i]%2==0){
+				printf("\n %d",q[i]);
+			}
+		}
+	}
+}
+void search(){
+	int x,c=0;
+	printf("\n enter the element to be search");
+	scanf("%d",&x);
+	for(int i=front;i<=rear;i++){
+		if(x==q[i]){
+			c+=1;
+			break;
+		}
+	}
+	if(c==0){
+		printf("the given element is not present in the queue");
+	}
+	else{
+		printf("the value is found");
+	}
+}
+void duplicate(){
+	int c=0,x=0,l=0;
+	for(int i=front;i<=rear;i++){
+		for(int k=0;k<=size;k++){
+			if(q[i]==ar[k]){
+				l+=1;
+				break;
+			}
+		}
+		if(l==0){
+			ar[i]=q[i];
+			l=0;
+			for(int j=i;j<=rear;j++){
+				if(q[i]==q[j]){
+					ar[i]=q[i];
+					c++;
+				}
+			}
+			printf("\n %d = %d",q[i],c);
+			c=0;
+		}
+	}
+}
+int main(){
+	int ch;
+	while(ch!=8){
+		printf("\n ** OPERATIONS **");
+		printf("\n 1.enqueue \n 2.dequeue \n 3.show \n 4.last \n 5.first \n 6.odd \n 7.even \n 8.exit \n 9.search \n 10.duplicate");
+		printf("\n print the choice");
+		scanf("%d",&ch);
+		switch(ch){
+			case 1:
+				enqueue();
+				break;
+			case 2:
+				dequeue();
+				break;
+			case 3:
+				show();
+				break;
+			case 4:
+				last();
+				break;
+			case 5:
+				first();
+				break;
+			case 6:
+				odd();
+				break;
+			case 7:
+				even();
+				break;
+			case 9:
+				search();
+				break;
+			case 10:
+				duplicate();
+				break;
+			default:
+				printf("\n** INVALID INPUT **");
+		}
+		
+		
+	}
+}
